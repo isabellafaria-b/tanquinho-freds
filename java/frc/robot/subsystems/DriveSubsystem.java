@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -34,10 +33,6 @@ public class DriveSubsystem extends SubsystemBase {
         ef.configNeutralDeadband(0.043315);
     }
 
-    public void driveWithJoysticks(Joystick joystick, double speed){
-        drive.arcadeDrive(joystick.getRawAxis(1), speed);
-    }
-
     public void Drive(double velEsq, double velDir){
         velE = velEsq;
         velD = velDir;
@@ -45,6 +40,8 @@ public class DriveSubsystem extends SubsystemBase {
         df.set(ControlMode.PercentOutput, velDir);
         ef.set(ControlMode.PercentOutput, velEsq);
     }
+
+
 
     @Override
   public void periodic() {

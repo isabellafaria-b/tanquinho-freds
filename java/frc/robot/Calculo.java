@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class Calculo extends DriveSubsystem{
@@ -13,9 +12,6 @@ public class Calculo extends DriveSubsystem{
     double velDir = 0, velEsq = 0, velBotao = 0;
     int angulo;
 
-    // Joystick
-    Joystick fred = new Joystick(0);
-
     // drive
     @Override
     public void Drive(double velE, double velD){
@@ -24,6 +20,18 @@ public class Calculo extends DriveSubsystem{
         
         df.set(ControlMode.PercentOutput, velD);
         ef.set(ControlMode.PercentOutput, velE);
+    }
+
+    public void botoes(boolean botaoA, boolean botaoB, boolean botaoC, boolean botaoD){
+     if (botaoA) {
+      velBotao = 0.25;
+    } else if(botaoB) {
+      velBotao = 0.5;
+    } else if (botaoC) {
+      velBotao = 0.75;
+    } else if (botaoD) {
+      velBotao = 1;
+    }
     }
 
     // calculos analogicos
@@ -75,7 +83,7 @@ public class Calculo extends DriveSubsystem{
     }
 
      public double analDir(double x2, double y2){
-        calcEsq(x2, y2);
+        calcDir(x2, y2);
 
         // movimentos diagonais
         if (x2 > deadzone && y2 > deadzone){
@@ -104,7 +112,19 @@ public class Calculo extends DriveSubsystem{
         return Math.max(-1, Math.min(1, sen));
     }
 
-    public void POV() {
+   public void triggers(double trigelaD, double trigelaE) {
+    if (trigelaE > deadzone) {
+      velDir = trigelaE;
+      velEsq = trigelaE;
+    } else if (trigelaD < -deadzone) {
+      velDir = trigelaD;
+      velEsq = trigelaD;
+    } else {
+      velEsq = 0; velDir = 0;
+    }
+  }
+
+    public double POV() {
     switch (angulo) {
       case -1:
         velEsq = velBotao * 0;
@@ -141,5 +161,7 @@ public class Calculo extends DriveSubsystem{
        velDir = velBotao * 0.5;
         break;
     }
+    
+    return velBotao;
   }
 }
