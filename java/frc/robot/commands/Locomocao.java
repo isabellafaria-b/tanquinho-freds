@@ -3,6 +3,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 
+
+
 public class Locomocao extends Command {
   // Variáveis
   boolean botaoA, botaoB, botaoC, botaoD;
@@ -38,7 +40,6 @@ public class Locomocao extends Command {
   }
 
   public void stop(){
-    
   }
 
   @Override
