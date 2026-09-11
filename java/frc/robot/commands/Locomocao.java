@@ -4,24 +4,28 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Calculo;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class Locomocao extends Command {
   // Variáveis
   boolean botaoA, botaoB, botaoC, botaoD;
   double trigelaD, trigelaE;
   double x1, y1; double x2, y2;
-  double velD, velE, velBotao;
-  int angulo;
+  double velD, velE, velBotao; int angulo;
 
   // Deadzone
   private final double deadzone = 0.4;
 
   //Objetos
-    private Joystick fred;
+    private final Joystick fred;
+    private final DriveTrainSubsystem drive;
     private final Calculo calculo = new Calculo();
 
-  public Locomocao(Joystick fred) {
+  public Locomocao(Joystick fred, DriveTrainSubsystem subsystem) {
     this.fred = fred;
+    this.drive = subsystem;
+
+    addRequirements(subsystem);
   }
 
   public void objetos(){
@@ -74,12 +78,11 @@ public class Locomocao extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   @Override
   public void execute() {
-    dashboard();
-
     calculo.Drive(velE, velD);
 
     calculo.calcEsq(x1, y1);

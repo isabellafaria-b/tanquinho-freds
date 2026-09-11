@@ -2,9 +2,9 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class Calculo extends DriveSubsystem{
+public class Calculo extends DriveTrainSubsystem{
     // Variáveis
     double hipotenusa, hipotenusa1;  
     double sen, sen1;
