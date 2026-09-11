@@ -9,8 +9,7 @@ public class Calculo extends DriveSubsystem{
     double hipotenusa, hipotenusa1;  
     double sen, sen1;
     private final double deadzone = 0.4;
-    double velDir = 0, velEsq = 0, velBotao = 0;
-    int angulo;
+    double velDir = 0, velEsq = 0;
 
     // drive
     @Override
@@ -20,18 +19,6 @@ public class Calculo extends DriveSubsystem{
         
         df.set(ControlMode.PercentOutput, velD);
         ef.set(ControlMode.PercentOutput, velE);
-    }
-
-    public void botoes(boolean botaoA, boolean botaoB, boolean botaoC, boolean botaoD){
-     if (botaoA) {
-      velBotao = 0.25;
-    } else if(botaoB) {
-      velBotao = 0.5;
-    } else if (botaoC) {
-      velBotao = 0.75;
-    } else if (botaoD) {
-      velBotao = 1;
-    }
     }
 
     // calculos analogicos
@@ -52,7 +39,7 @@ public class Calculo extends DriveSubsystem{
     }
 
     //analogicos
-    public double analEsq(double x1, double y1){
+    public double analEsq(double x1, double y1, double velBotao){
         calcEsq(x1, y1);
 
         // movimentos diagonais
@@ -79,10 +66,12 @@ public class Calculo extends DriveSubsystem{
          velDir = -1;
         }
 
+        velEsq *= velBotao;
+        velDir *= velBotao;
         return Math.max(-1, Math.min(1, sen));
     }
 
-     public double analDir(double x2, double y2){
+     public double analDir(double x2, double y2, double velBotao){
         calcDir(x2, y2);
 
         // movimentos diagonais
@@ -109,6 +98,8 @@ public class Calculo extends DriveSubsystem{
          velDir = -1;
         }
 
+        velEsq *= velBotao;
+        velDir *= velBotao;
         return Math.max(-1, Math.min(1, sen));
     }
 
@@ -124,7 +115,7 @@ public class Calculo extends DriveSubsystem{
     }
   }
 
-    public double POV() {
+    public double POV(double velBotao, int angulo) {
     switch (angulo) {
       case -1:
         velEsq = velBotao * 0;
