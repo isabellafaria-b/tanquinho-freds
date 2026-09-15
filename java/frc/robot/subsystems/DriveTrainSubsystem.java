@@ -5,14 +5,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.OperatorConstants;
 
 
 public class DriveTrainSubsystem extends SubsystemBase {
     // Controladores de motor
-    protected final VictorSPX dt = new VictorSPX(0);
-    protected final VictorSPX df = new VictorSPX(2);
-    protected final VictorSPX et = new VictorSPX(3);
-    protected final VictorSPX ef = new VictorSPX(4);
+    protected final VictorSPX dt = new VictorSPX(OperatorConstants.dt);
+    protected final VictorSPX df = new VictorSPX(OperatorConstants.df);
+    protected final VictorSPX et = new VictorSPX(OperatorConstants.et);
+    protected final VictorSPX ef = new VictorSPX(OperatorConstants.ef);
 
     // Variaveis
     double velE, velD;
@@ -27,8 +28,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
         df.setNeutralMode(NeutralMode.Brake);
         ef.setNeutralMode(NeutralMode.Brake);
 
-        df.configNeutralDeadband(0.043315);
-        ef.configNeutralDeadband(0.043315);
+        df.configNeutralDeadband(OperatorConstants.deadzone);
+        ef.configNeutralDeadband(OperatorConstants.deadzone);
     }
 
     public void Drive(double velEsq, double velDir){

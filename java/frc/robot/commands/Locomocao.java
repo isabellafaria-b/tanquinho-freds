@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Calculo;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class Locomocao extends Command {
@@ -14,7 +15,7 @@ public class Locomocao extends Command {
   double velD, velE, velBotao; int angulo;
 
   // Deadzone
-  private final double deadzone = 0.4;
+  private final double deadzone = OperatorConstants.deadzone;
 
   //Objetos
     private final Joystick fred;
@@ -23,7 +24,7 @@ public class Locomocao extends Command {
 
   public Locomocao(Joystick fred, DriveTrainSubsystem subsystem) {
     this.fred = fred;
-    this.drive = subsystem;
+    drive = subsystem;
 
     addRequirements(subsystem);
   }
@@ -74,9 +75,6 @@ public class Locomocao extends Command {
    SmartDashboard.putNumber("Trigger Esquerda", trigelaE);
   }
 
-  public void stop(){
-  }
-
   @Override
   public void initialize() {
   }
@@ -88,10 +86,15 @@ public class Locomocao extends Command {
     calculo.calcEsq(x1, y1);
     calculo.calcDir(x2, y2);
 
-    calculo.analEsq(x1, y1, velBotao);
-    calculo.analDir(x2, y2, velBotao);
-    calculo.triggers(trigelaD, trigelaE);
-    calculo.POV(velBotao, angulo);
+    if(velD > deadzone && velE > deadzone){
+      calculo.analEsq(x1, y1, velBotao);
+      calculo.analDir(x2, y2, velBotao);
+      if(trigelaD > deadzone && trigelaE > deadzone){
+        calculo.triggers(trigelaD, trigelaE);
+      } else if(fred.getPOV() != -1) {
+        calculo.POV(velBotao, angulo);
+      }
+    }
   }
 
   @Override
