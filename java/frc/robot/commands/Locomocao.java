@@ -87,13 +87,17 @@ public class Locomocao extends Command {
     calculo.calcDir(x2, y2);
 
     if(velD > deadzone && velE > deadzone){
-      calculo.analEsq(x1, y1, velBotao);
+      if(Calculo.hipotenusa > deadzone){
+        calculo.analEsq(x1, y1, velBotao);
+      } else if(Calculo.hipotenusa1 > deadzone){
       calculo.analDir(x2, y2, velBotao);
-      if(trigelaD > deadzone && trigelaE > deadzone){
+      } else if(trigelaD > deadzone && trigelaE > deadzone){
         calculo.triggers(trigelaD, trigelaE);
       } else if(fred.getPOV() != -1) {
         calculo.POV(velBotao, angulo);
       }
+    } else {
+      velE = 0; velD = 0; velBotao = 0;
     }
   }
 

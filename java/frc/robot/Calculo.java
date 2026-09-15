@@ -2,14 +2,13 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class Calculo extends DriveTrainSubsystem{
     // Variáveis
-    double hipotenusa, hipotenusa1;  
+    public static double hipotenusa, hipotenusa1;  
     double sen, sen1;
-    private final double deadzone = OperatorConstants.deadzone;
+    private final double deadzone = Constants.OperatorConstants.deadzone;
     double velDir = 0, velEsq = 0;
 
     // drive
