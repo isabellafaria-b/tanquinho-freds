@@ -12,7 +12,7 @@ public class Locomocao extends Command {
   boolean botaoA, botaoB, botaoC, botaoD;
   double trigelaD, trigelaE;
   double x1, y1; double x2, y2;
-  double velD, velE, velBotao; int angulo;
+  double velD, velE; double velBotao = 0; int angulo;
 
   // Deadzone
   private final double deadzone = OperatorConstants.deadzone;
@@ -50,17 +50,27 @@ public class Locomocao extends Command {
     angulo = fred.getPOV();
   }
 
-  public void botoes(boolean botaoA, boolean botaoB, boolean botaoC, boolean botaoD){
-     if (botaoA) {
-      velBotao = 0.25;
-    } else if(botaoB) {
-      velBotao = 0.5;
-    } else if (botaoC) {
-      velBotao = 0.75;
-    } else if (botaoD) {
-      velBotao = 1;
-    }
-    }
+  @Override
+  public void execute() {
+    calculo.Drive(velE, velD);
+    objetos();
+
+    calculo.calcEsq(x1, y1);
+    calculo.calcDir(x2, y2);
+    botoes();
+
+      if(Calculo.hipotenusa > deadzone){
+        calculo.analEsq(x1, y1, velBotao);
+      } else if(Calculo.hipotenusa1 > deadzone){
+      calculo.analDir(x2, y2, velBotao);
+      } else if(trigelaD > deadzone && trigelaE > deadzone){
+        calculo.triggers(trigelaD, trigelaE);
+      } else if(fred.getPOV() != -1) {
+        calculo.POV(velBotao, angulo);
+      }
+
+      dashboard();
+  }
 
   public void dashboard(){
    SmartDashboard.putBoolean("Botao A", botaoD);
@@ -74,30 +84,16 @@ public class Locomocao extends Command {
    SmartDashboard.putNumber("Trigger Direita", trigelaD);
    SmartDashboard.putNumber("Trigger Esquerda", trigelaE);
   }
-
-  @Override
-  public void initialize() {
-  }
-
-  @Override
-  public void execute() {
-    calculo.Drive(velE, velD);
-
-    calculo.calcEsq(x1, y1);
-    calculo.calcDir(x2, y2);
-
-    if(velD > deadzone && velE > deadzone){
-      if(Calculo.hipotenusa > deadzone){
-        calculo.analEsq(x1, y1, velBotao);
-      } else if(Calculo.hipotenusa1 > deadzone){
-      calculo.analDir(x2, y2, velBotao);
-      } else if(trigelaD > deadzone && trigelaE > deadzone){
-        calculo.triggers(trigelaD, trigelaE);
-      } else if(fred.getPOV() != -1) {
-        calculo.POV(velBotao, angulo);
-      }
-    } else {
-      velE = 0; velD = 0; velBotao = 0;
+  
+  public void botoes(){
+     if (botaoA) {
+      velBotao = 0.25;
+    } else if(botaoB) {
+      velBotao = 0.5;
+    } else if (botaoC) {
+      velBotao = 0.75;
+    } else if (botaoD) {
+      velBotao = 1;
     }
   }
 

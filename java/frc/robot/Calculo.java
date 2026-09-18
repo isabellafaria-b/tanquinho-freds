@@ -6,7 +6,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class Calculo extends DriveTrainSubsystem{
     // Variáveis
-    public static double hipotenusa, hipotenusa1;  
+    public static double hipotenusa, hipotenusa1;
     double sen, sen1;
     private final double deadzone = Constants.OperatorConstants.deadzone;
     double velDir = 0, velEsq = 0;
@@ -76,17 +76,17 @@ public class Calculo extends DriveTrainSubsystem{
 
         // movimentos diagonais
         if (x2 > deadzone && y2 > deadzone){
-         velEsq = hipotenusa;
-         velDir = sen;
+         velEsq = hipotenusa1;
+         velDir = sen1;
         } else if (x2 < -deadzone && y2 > deadzone) { // eixo II
-         velEsq = -sen;
-         velDir = hipotenusa;
+         velEsq = -sen1;
+         velDir = hipotenusa1;
         } else if (x2 < -deadzone && y2 < -deadzone) { // eixo III
-         velEsq = sen;
-         velDir = -hipotenusa;
+         velEsq = sen1;
+         velDir = -hipotenusa1;
         } else if (x2 > deadzone && y2 < -deadzone) { // eixo IV
-         velEsq = hipotenusa;
-        velDir = sen;
+         velEsq = hipotenusa1;
+        velDir = sen1;
         }
 
         // limitando o analogico
@@ -100,7 +100,7 @@ public class Calculo extends DriveTrainSubsystem{
 
         velEsq *= velBotao;
         velDir *= velBotao;
-        return Math.max(-1, Math.min(1, sen));
+        return Math.max(-1, Math.min(1, sen1));
     }
 
    public void triggers(double trigelaD, double trigelaE) {
@@ -115,44 +115,45 @@ public class Calculo extends DriveTrainSubsystem{
     }
   }
 
-    public double POV(double velBotao, int angulo) {
+    public void POV(double velBotao, int angulo) {
     switch (angulo) {
       case -1:
-        velEsq = velBotao * 0;
-        velDir = velBotao * 0;
+        velEsq = 0;
+        velDir = 0;
       case 0: 
-       velEsq = velBotao * 1;
-       velDir = velBotao * 1;
+       velEsq = 1;
+       velDir = 1;
        break;
       case 45:
-       velEsq = velBotao * 0.5;
-       velDir = velBotao * -0.5;
+       velEsq = 0.5;
+       velDir = -0.5;
         break;
       case 90:
-       velEsq = velBotao * 1;
-       velDir = velBotao * 0;
+       velEsq = 1;
+       velDir = 0;
         break;
       case 135:
-       velEsq = velBotao * 1;
-       velDir = velBotao * 0.3;
+       velEsq = 1;
+       velDir = 0.3;
       case 180:
-       velEsq = velBotao * -1;
-       velDir = velBotao * -1;
+       velEsq = -1;
+       velDir = -1;
         break;
       case 225:
-       velEsq = velBotao * 0.3;
-       velDir = velBotao * 1;
+       velEsq = 0.3;
+       velDir = 1;
         break;
       case 270:
-       velEsq = velBotao * 0;
-       velDir = velBotao * 1;
+       velEsq = 0;
+       velDir = 1;
         break;
       case 315:
-       velEsq = velBotao * -0.5;
-       velDir = velBotao * 0.5;
+       velEsq = -0.5;
+       velDir = 0.5;
         break;
     }
-    
-    return velBotao;
+
+    velEsq *= velBotao;
+    velDir *= velBotao;
   }
 }
