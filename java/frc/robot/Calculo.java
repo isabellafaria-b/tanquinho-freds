@@ -9,7 +9,8 @@ public class Calculo extends DriveTrainSubsystem{
     public static double hipotenusa, hipotenusa1;
     double sen, sen1;
     private final double deadzone = Constants.OperatorConstants.deadzone;
-    double velDir = 0, velEsq = 0;
+    public static double velDir = 0, velEsq = 0;
+    public static double velBotao; public static int angulo;
 
     // drive
     @Override
@@ -115,45 +116,42 @@ public class Calculo extends DriveTrainSubsystem{
     }
   }
 
-    public void POV(double velBotao, int angulo) {
+      public void POV() {
     switch (angulo) {
       case -1:
-        velEsq = 0;
-        velDir = 0;
+        velEsq = velBotao * 0;
+        velDir = velBotao * 0;
       case 0: 
-       velEsq = 1;
-       velDir = 1;
+       velEsq = velBotao * 1;
+       velDir = velBotao * 1;
        break;
       case 45:
-       velEsq = 0.5;
-       velDir = -0.5;
+       velEsq = velBotao * 0.5;
+       velDir = velBotao * -0.5;
         break;
       case 90:
-       velEsq = 1;
-       velDir = 0;
+       velEsq = velBotao * 1;
+       velDir = velBotao * 0;
         break;
       case 135:
-       velEsq = 1;
-       velDir = 0.3;
+       velEsq = velBotao * 1;
+       velDir = velBotao * 0.3;
       case 180:
-       velEsq = -1;
-       velDir = -1;
+       velEsq = velBotao * -1;
+       velDir = velBotao * -1;
         break;
       case 225:
-       velEsq = 0.3;
-       velDir = 1;
+       velEsq = velBotao * 0.3;
+       velDir = velBotao * 1;
         break;
       case 270:
-       velEsq = 0;
-       velDir = 1;
+       velEsq = velBotao * 0;
+       velDir = velBotao * 1;
         break;
       case 315:
-       velEsq = -0.5;
-       velDir = 0.5;
+       velEsq = velBotao * -0.5;
+       velDir = velBotao * 0.5;
         break;
     }
-
-    velEsq *= velBotao;
-    velDir *= velBotao;
   }
 }

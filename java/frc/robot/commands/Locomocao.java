@@ -12,7 +12,7 @@ public class Locomocao extends Command {
   boolean botaoA, botaoB, botaoC, botaoD;
   double trigelaD, trigelaE;
   double x1, y1; double x2, y2;
-  double velD, velE; double velBotao = 0; int angulo;
+  double velD, velE;
 
   // Deadzone
   private final double deadzone = OperatorConstants.deadzone;
@@ -47,7 +47,7 @@ public class Locomocao extends Command {
       trigelaE *= -1;
 
     // POV
-    angulo = fred.getPOV();
+    Calculo.angulo = fred.getPOV();
   }
 
   @Override
@@ -60,13 +60,13 @@ public class Locomocao extends Command {
     botoes();
 
       if(Calculo.hipotenusa > deadzone){
-        calculo.analEsq(x1, y1, velBotao);
+        calculo.analEsq(x1, y1, Calculo.velBotao);
       } else if(Calculo.hipotenusa1 > deadzone){
-      calculo.analDir(x2, y2, velBotao);
+      calculo.analDir(x2, y2, Calculo.velBotao);
       } else if(trigelaD > deadzone && trigelaE > deadzone){
         calculo.triggers(trigelaD, trigelaE);
       } else if(fred.getPOV() != -1) {
-        calculo.POV(velBotao, angulo);
+        calculo.POV();
       }
 
       dashboard();
@@ -77,23 +77,23 @@ public class Locomocao extends Command {
    SmartDashboard.putBoolean("Botao B", botaoB);
    SmartDashboard.putBoolean("Botao C", botaoC);
    SmartDashboard.putBoolean("Botao D", botaoA);
-   SmartDashboard.putNumber("Velocidade botao", velBotao);
-   SmartDashboard.putNumber("Velocidade do motor direito", velD);
-   SmartDashboard.putNumber("Velocidade do motor esquerdo", velE);
-   SmartDashboard.putNumber("POV", angulo);
+   SmartDashboard.putNumber("Velocidade botao", Calculo.velBotao);
+   SmartDashboard.putNumber("Vel do motor direito", Calculo.velDir);
+   SmartDashboard.putNumber("Vel do motor esquerdo", Calculo.velEsq);
+   SmartDashboard.putNumber("POV", Calculo.angulo);
    SmartDashboard.putNumber("Trigger Direita", trigelaD);
    SmartDashboard.putNumber("Trigger Esquerda", trigelaE);
   }
   
   public void botoes(){
      if (botaoA) {
-      velBotao = 0.25;
+      Calculo.velBotao = 0.25;
     } else if(botaoB) {
-      velBotao = 0.5;
+      Calculo.velBotao = 0.5;
     } else if (botaoC) {
-      velBotao = 0.75;
+      Calculo.velBotao = 0.75;
     } else if (botaoD) {
-      velBotao = 1;
+      Calculo.velBotao = 1;
     }
   }
 
