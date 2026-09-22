@@ -102,9 +102,9 @@ public class Calculo extends DriveTrainSubsystem{
   }
 
    public void triggers() {
-    if (Locomocao.trigelaE < -deadzone) {
-      velDir = Locomocao.trigelaE;
-      velEsq = Locomocao.trigelaE;
+    if (Locomocao.trigelaE > deadzone) {
+      velDir = -Locomocao.trigelaE;
+      velEsq = -Locomocao.trigelaE;
     } else if (Locomocao.trigelaD > deadzone) {
       velDir = Locomocao.trigelaD;
       velEsq = Locomocao.trigelaD;

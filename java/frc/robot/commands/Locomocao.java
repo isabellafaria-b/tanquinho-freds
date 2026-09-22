@@ -43,7 +43,6 @@ public class Locomocao extends Command {
     // triggers
       trigelaD = fred.getRawAxis(3);
       trigelaE = fred.getRawAxis(2);
-      trigelaE *= -1;
 
     // POV
     Calculo.angulo = fred.getPOV();
@@ -54,15 +53,18 @@ public class Locomocao extends Command {
     objetos();
     drive.Drive(Calculo.velEsq, Calculo.velDir);
 
-      if(Calculo.hipotenusa > deadzone){
-        calculo.analEsq();
-      } else if(Calculo.hipotenusa1 > deadzone){
-      calculo.analDir();
-      } else if(trigelaD > deadzone || trigelaE > deadzone){
-        calculo.triggers();
-      } else if(fred.getPOV() != -1) {
-        calculo.POV();
-      }
+    if(Calculo.hipotenusa > deadzone){
+      calculo.analEsq();
+    } //else if(Calculo.hipotenusa1 > deadzone){
+      //calculo.analDir(); } 
+      else if(trigelaD > deadzone || trigelaE > deadzone){
+      calculo.triggers();
+    } else if(fred.getPOV() != -1) {
+      calculo.POV();
+    } else {
+      Calculo.velEsq = 0;
+      Calculo.velDir = 0;
+    }
 
       botoes();
       calculo.calcEsq();
