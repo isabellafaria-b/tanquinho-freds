@@ -68,7 +68,7 @@ public class Locomocao extends Command {
 
       botoes();
       calculo.calcEsq();
-      calculo.calcDir();
+      //calculo.calcDir();
       dashboard();
   }
 

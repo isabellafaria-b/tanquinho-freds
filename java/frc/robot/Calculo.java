@@ -15,50 +15,44 @@ public class Calculo extends DriveTrainSubsystem{
     public void calcEsq(){
         hipotenusa = Math.hypot(Locomocao.x1, Locomocao.y1);
         if(hipotenusa > 1){
-            hipotenusa = 1;
-        } 
+          hipotenusa = 1;
+        }
         sen = Locomocao.y1 / hipotenusa;
     }
 
     public void calcDir(){
-        hipotenusa = Math.hypot(Locomocao.x2, Locomocao.y2);
-        if(hipotenusa > 1){
-            hipotenusa = 1;
+        hipotenusa1 = Math.hypot(Locomocao.x2, Locomocao.y2);
+        if(hipotenusa1 > 1){
+            hipotenusa1 = 1;
         } 
-        sen = Locomocao.y2 / hipotenusa;
+        sen1 = Locomocao.y2 / hipotenusa1;
     }
 
     //analogicos
     public double analEsq(){
         // movimentos diagonais
-        if (Locomocao.x1 > deadzone && Locomocao.y1 > deadzone){
-         velEsq = hipotenusa;
-         velDir = hipotenusa - sen;
-        } else if (Locomocao.x1 < -deadzone && Locomocao.y1 > deadzone) { // eixo II
-         velEsq = hipotenusa + sen;
-         velDir = hipotenusa;
-        } else if (Locomocao.x1 < -deadzone && Locomocao.y1 < -deadzone) { // eixo III
-         velEsq = -hipotenusa - sen;
-         velDir = -hipotenusa;
-        } else if (Locomocao.x1 > deadzone && Locomocao.y1 < -deadzone) { // eixo IV
-         velEsq = -hipotenusa;
-         velDir = -hipotenusa + sen;
-        }
+    if (Locomocao.x1 > deadzone && Locomocao.y1 > deadzone) { // eixo I
+      velEsq = hipotenusa;
+      velDir = sen;
+    } else if (Locomocao.x1 < -deadzone && Locomocao.y1 > deadzone) { // eixo II
+      velEsq = -sen;
+      velDir = hipotenusa;
+    } else if (Locomocao.x1 < -deadzone && Locomocao.y1 < -deadzone) { // eixo III
+      velEsq = sen;
+      velDir = -hipotenusa;
+    } else if (Locomocao.x1 > deadzone && Locomocao.y1 < -deadzone) { // eixo IV
+      velEsq = hipotenusa;
+      velDir = sen;
+    }
 
-        // movimentos verticais/horizontais
-        else if(Locomocao.x1 < deadzone && Locomocao.y1 > deadzone){
-          velEsq = hipotenusa;
-          velDir = hipotenusa;
-        } else if(Locomocao.x1 > deadzone && Locomocao.y1 < deadzone){
-          velEsq = hipotenusa;
-          velDir = 0;
-        } else if(Locomocao.x1 < -deadzone && Locomocao.y1 < -deadzone){
-          velEsq = -hipotenusa;
-          velDir = -hipotenusa;
-        } else if(Locomocao.x1 < -deadzone && Locomocao.y1 < deadzone){
-          velEsq = 0;
-          velDir = hipotenusa;
-        }
+    // movimentos verticais/horizontais
+    if(velEsq > 0.99 && velDir > 0.99) {
+      velEsq = 1;
+      velDir = 1;
+    } else if(velEsq < -0.99 && velDir < -0.99) {
+      velEsq = -1;
+      velDir = -1;
+    }
 
         velEsq *= velBotao;
         velDir *= velBotao;
