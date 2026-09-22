@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Calculo;
 import frc.robot.Constants;
 
 
@@ -14,9 +15,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
     protected final VictorSPX df = new VictorSPX(Constants.OperatorConstants.df);
     protected final VictorSPX et = new VictorSPX(Constants.OperatorConstants.et);
     protected final VictorSPX ef = new VictorSPX(Constants.OperatorConstants.ef);
-
-    // Variaveis
-    double velE, velD;
 
     public DriveTrainSubsystem(){
         dt.setInverted(true);
@@ -32,12 +30,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
         ef.configNeutralDeadband(Constants.OperatorConstants.deadzone);
     }
 
-    public void Drive(double velEsq, double velDir){
-        velE = velEsq;
-        velD = velDir;
+    public void Drive(double velE, double velD){
+        Calculo.velEsq = velE;
+        Calculo.velDir = velD;
         
-        df.set(ControlMode.PercentOutput, velDir);
-        ef.set(ControlMode.PercentOutput, velEsq);
+        df.set(ControlMode.PercentOutput, velD);
+        ef.set(ControlMode.PercentOutput, velE);
     }
 
     @Override

@@ -10,9 +10,8 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 public class Locomocao extends Command {
   // Variáveis
   boolean botaoA, botaoB, botaoC, botaoD;
-  double trigelaD, trigelaE;
-  double x1, y1; double x2, y2;
-  double velD, velE;
+  public static double trigelaE, trigelaD;
+  public static double x1, y1; public static double x2, y2;
 
   // Deadzone
   private final double deadzone = OperatorConstants.deadzone;
@@ -42,8 +41,8 @@ public class Locomocao extends Command {
       y2 = -fred.getRawAxis(5);
 
     // triggers
-      trigelaD = fred.getRawAxis(2);
-      trigelaE = fred.getRawAxis(3);
+      trigelaD = fred.getRawAxis(3);
+      trigelaE = fred.getRawAxis(2);
       trigelaE *= -1;
 
     // POV
@@ -52,23 +51,22 @@ public class Locomocao extends Command {
 
   @Override
   public void execute() {
-    calculo.Drive(velE, velD);
     objetos();
-
-    calculo.calcEsq(x1, y1);
-    calculo.calcDir(x2, y2);
-    botoes();
+    drive.Drive(Calculo.velEsq, Calculo.velDir);
 
       if(Calculo.hipotenusa > deadzone){
-        calculo.analEsq(x1, y1, Calculo.velBotao);
+        calculo.analEsq();
       } else if(Calculo.hipotenusa1 > deadzone){
-      calculo.analDir(x2, y2, Calculo.velBotao);
-      } else if(trigelaD > deadzone && trigelaE > deadzone){
-        calculo.triggers(trigelaD, trigelaE);
+      calculo.analDir();
+      } else if(trigelaD > deadzone || trigelaE > deadzone){
+        calculo.triggers();
       } else if(fred.getPOV() != -1) {
         calculo.POV();
       }
 
+      botoes();
+      calculo.calcEsq();
+      calculo.calcDir();
       dashboard();
   }
 

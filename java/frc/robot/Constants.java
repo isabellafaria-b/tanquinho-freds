@@ -7,7 +7,7 @@ public final class Constants {
     public static final int et = 3;
     public static final int ef = 4;
 
-    public static final double deadzone = 0.4;
+    public static final double deadzone = 0.04;
 
     public static final int fred = 0;
   }

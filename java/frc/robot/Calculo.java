@@ -1,7 +1,6 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
+import frc.robot.commands.Locomocao;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class Calculo extends DriveTrainSubsystem{
@@ -12,59 +11,53 @@ public class Calculo extends DriveTrainSubsystem{
     public static double velDir = 0, velEsq = 0;
     public static double velBotao; public static int angulo;
 
-    // drive
-    @Override
-    public void Drive(double velE, double velD){
-        velEsq = velE;
-        velDir = velD;
-        
-        df.set(ControlMode.PercentOutput, velD);
-        ef.set(ControlMode.PercentOutput, velE);
-    }
-
     // calculos analogicos
-    public void calcEsq(double x1, double y1){
-        hipotenusa = Math.hypot(x1, y1);
+    public void calcEsq(){
+        hipotenusa = Math.hypot(Locomocao.x1, Locomocao.y1);
         if(hipotenusa > 1){
             hipotenusa = 1;
         } 
-        sen = y1 / hipotenusa;
+        sen = Locomocao.y1 / hipotenusa;
     }
 
-    public void calcDir(double x2, double y2){
-        hipotenusa = Math.hypot(x2, y2);
+    public void calcDir(){
+        hipotenusa = Math.hypot(Locomocao.x2, Locomocao.y2);
         if(hipotenusa > 1){
             hipotenusa = 1;
         } 
-        sen = y2 / hipotenusa;
+        sen = Locomocao.y2 / hipotenusa;
     }
 
     //analogicos
-    public double analEsq(double x1, double y1, double velBotao){
-        calcEsq(x1, y1);
-
+    public double analEsq(){
         // movimentos diagonais
-        if (x1 > deadzone && y1 > deadzone){
+        if (Locomocao.x1 > deadzone && Locomocao.y1 > deadzone){
          velEsq = hipotenusa;
-         velDir = sen;
-        } else if (x1 < -deadzone && y1 > deadzone) { // eixo II
-         velEsq = -sen;
+         velDir = hipotenusa - sen;
+        } else if (Locomocao.x1 < -deadzone && Locomocao.y1 > deadzone) { // eixo II
+         velEsq = hipotenusa + sen;
          velDir = hipotenusa;
-        } else if (x1 < -deadzone && y1 < -deadzone) { // eixo III
-         velEsq = sen;
+        } else if (Locomocao.x1 < -deadzone && Locomocao.y1 < -deadzone) { // eixo III
+         velEsq = -hipotenusa - sen;
          velDir = -hipotenusa;
-        } else if (x1 > deadzone && y1 < -deadzone) { // eixo IV
-         velEsq = hipotenusa;
-        velDir = sen;
+        } else if (Locomocao.x1 > deadzone && Locomocao.y1 < -deadzone) { // eixo IV
+         velEsq = -hipotenusa;
+         velDir = -hipotenusa + sen;
         }
 
         // movimentos verticais/horizontais
-        if(velEsq > 0.99 && velDir > 0.99) {
-         velEsq = 1;
-         velDir = 1;
-        } else if(velEsq < -0.99 && velDir < -0.99) {
-         velEsq = -1;
-         velDir = -1;
+        else if(Locomocao.x1 < deadzone && Locomocao.y1 > deadzone){
+          velEsq = hipotenusa;
+          velDir = hipotenusa;
+        } else if(Locomocao.x1 > deadzone && Locomocao.y1 < deadzone){
+          velEsq = hipotenusa;
+          velDir = 0;
+        } else if(Locomocao.x1 < -deadzone && Locomocao.y1 < -deadzone){
+          velEsq = -hipotenusa;
+          velDir = -hipotenusa;
+        } else if(Locomocao.x1 < -deadzone && Locomocao.y1 < deadzone){
+          velEsq = 0;
+          velDir = hipotenusa;
         }
 
         velEsq *= velBotao;
@@ -72,61 +65,67 @@ public class Calculo extends DriveTrainSubsystem{
         return Math.max(-1, Math.min(1, sen));
     }
 
-     public double analDir(double x2, double y2, double velBotao){
-        calcDir(x2, y2);
+    public double analDir(){
+      // movimentos diagonais
+      if (Locomocao.x2 > deadzone && Locomocao.y2 > deadzone){
+       velEsq = hipotenusa1;
+       velDir = hipotenusa1 - sen1;
+      } else if (Locomocao.x2 < -deadzone && Locomocao.y2 > deadzone) { // eixo II
+       velEsq = hipotenusa1 + sen1;
+       velDir = hipotenusa1;
+      } else if (Locomocao.x2 < -deadzone && Locomocao.y2 < -deadzone) { // eixo III
+       velEsq = -hipotenusa1 - sen1;
+       velDir = -hipotenusa1;
+      } else if (Locomocao.x2 > deadzone && Locomocao.y2 < -deadzone) { // eixo IV
+       velEsq = -hipotenusa1;
+       velDir = -hipotenusa1 + sen1;
+      }
 
-        // movimentos diagonais
-        if (x2 > deadzone && y2 > deadzone){
-         velEsq = hipotenusa1;
-         velDir = sen1;
-        } else if (x2 < -deadzone && y2 > deadzone) { // eixo II
-         velEsq = -sen1;
-         velDir = hipotenusa1;
-        } else if (x2 < -deadzone && y2 < -deadzone) { // eixo III
-         velEsq = sen1;
-         velDir = -hipotenusa1;
-        } else if (x2 > deadzone && y2 < -deadzone) { // eixo IV
-         velEsq = hipotenusa1;
-        velDir = sen1;
-        }
+      // movimentos verticais/horizontais
+      else if(Locomocao.x2 < deadzone && Locomocao.y2 > deadzone){
+        velEsq = hipotenusa1;
+        velDir = hipotenusa1;
+      } else if(Locomocao.x2 > deadzone && Locomocao.y2 < deadzone){
+        velEsq = hipotenusa1;
+        velDir = 0;
+      } else if(Locomocao.x2 < -deadzone && Locomocao.y2 < -deadzone){
+        velEsq = -hipotenusa1;
+        velDir = -hipotenusa1;
+      } else if(Locomocao.x2 < -deadzone && Locomocao.y2 < deadzone){
+        velEsq = 0;
+        velDir = hipotenusa1;
+      }
 
-        // limitando o analogico
-        if(velEsq > 0.99 && velDir > 0.99) {
-         velEsq = 1;
-         velDir = 1;
-        } else if(velEsq < -0.99 && velDir < -0.99) {
-         velEsq = -1;
-         velDir = -1;
-        }
+      velEsq *= velBotao;
+      velDir *= velBotao;
+      return Math.max(-1, Math.min(1, sen1));
+  }
 
-        velEsq *= velBotao;
-        velDir *= velBotao;
-        return Math.max(-1, Math.min(1, sen1));
-    }
-
-   public void triggers(double trigelaD, double trigelaE) {
-    if (trigelaE > deadzone) {
-      velDir = trigelaE;
-      velEsq = trigelaE;
-    } else if (trigelaD < -deadzone) {
-      velDir = trigelaD;
-      velEsq = trigelaD;
+   public void triggers() {
+    if (Locomocao.trigelaE < -deadzone) {
+      velDir = Locomocao.trigelaE;
+      velEsq = Locomocao.trigelaE;
+    } else if (Locomocao.trigelaD > deadzone) {
+      velDir = Locomocao.trigelaD;
+      velEsq = Locomocao.trigelaD;
     } else {
       velEsq = 0; velDir = 0;
     }
+
+    velEsq *= velBotao;
+    velDir *= velBotao;
   }
 
       public void POV() {
     switch (angulo) {
       case -1:
-        velEsq = velBotao * 0;
-        velDir = velBotao * 0;
+      velEsq = 0; velDir = 0;
       case 0: 
        velEsq = velBotao * 1;
        velDir = velBotao * 1;
        break;
       case 45:
-       velEsq = velBotao * 0.5;
+       velEsq = velBotao * 1;
        velDir = velBotao * -0.5;
         break;
       case 90:
@@ -134,15 +133,15 @@ public class Calculo extends DriveTrainSubsystem{
        velDir = velBotao * 0;
         break;
       case 135:
-       velEsq = velBotao * 1;
-       velDir = velBotao * 0.3;
+       velEsq = velBotao * -1;
+       velDir = velBotao * -0.5;
       case 180:
        velEsq = velBotao * -1;
        velDir = velBotao * -1;
         break;
       case 225:
-       velEsq = velBotao * 0.3;
-       velDir = velBotao * 1;
+       velEsq = velBotao * -0.5;
+       velDir = velBotao * -1;
         break;
       case 270:
        velEsq = velBotao * 0;
@@ -150,7 +149,7 @@ public class Calculo extends DriveTrainSubsystem{
         break;
       case 315:
        velEsq = velBotao * -0.5;
-       velDir = velBotao * 0.5;
+       velDir = velBotao * 1;
         break;
     }
   }
