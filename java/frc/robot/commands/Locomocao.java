@@ -55,9 +55,9 @@ public class Locomocao extends Command {
 
     if(Calculo.hipotenusa > deadzone){
       calculo.analEsq();
-    } //else if(Calculo.hipotenusa1 > deadzone){
-      //calculo.analDir(); } 
-      else if(trigelaD > deadzone || trigelaE > deadzone){
+    } else if(Calculo.hipotenusa1 > deadzone){
+      calculo.analDir(); 
+    } else if(trigelaD > deadzone || trigelaE > deadzone){
       calculo.triggers();
     } else if(fred.getPOV() != -1) {
       calculo.POV();
@@ -68,7 +68,7 @@ public class Locomocao extends Command {
 
       botoes();
       calculo.calcEsq();
-      //calculo.calcDir();
+      calculo.calcDir();
       dashboard();
   }
 
