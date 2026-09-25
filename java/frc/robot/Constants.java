@@ -10,5 +10,6 @@ public final class Constants {
     public static final double deadzone = 0.04;
 
     public static final int fred = 0;
+    public static final int input = 1;
   }
 }

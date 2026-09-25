@@ -1,11 +1,14 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class Autos extends Command {
     public static Timer isabella = new Timer();
+    DigitalInput input = new DigitalInput(Constants.OperatorConstants.input);
     Locomocao locomocao;
     DriveTrainSubsystem subsystem;
 
