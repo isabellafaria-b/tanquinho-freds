@@ -83,6 +83,7 @@ public class Locomocao extends Command {
    SmartDashboard.putNumber("POV", Calculo.angulo);
    SmartDashboard.putNumber("Trigger Direita", trigelaD);
    SmartDashboard.putNumber("Trigger Esquerda", trigelaE);
+   SmartDashboard.putNumber("TimerBella", Autos.isabella.get());
   }
   
   public void botoes(){

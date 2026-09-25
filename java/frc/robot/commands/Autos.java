@@ -2,11 +2,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Calculo;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class Autos extends Command {
-    Timer isabella = new Timer();
+    public static Timer isabella = new Timer();
     Locomocao locomocao;
     DriveTrainSubsystem subsystem;
 
@@ -20,15 +19,17 @@ public class Autos extends Command {
   @Override
   public void initialize() {
     isabella.reset();
+    isabella.start();
   }
 
+// 20ms ATUALIZA
   @Override
   public void execute() {
-    isabella.start();
-
     if(isabella.get() <= 2){
-        Calculo.velEsq = 1;
-        Calculo.velDir = 1;
+        subsystem.Drive(1, 1);
+    } else {
+      isabella.stop();
+      subsystem.Drive(0, 0);
     }
 
     locomocao.dashboard();    
@@ -36,11 +37,13 @@ public class Autos extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    isabella.stop();
   }
 
   @Override
   public boolean isFinished() {
+    if (isabella.get() >= 2){
+      return true;
+    }
     return false;
   }
 }
