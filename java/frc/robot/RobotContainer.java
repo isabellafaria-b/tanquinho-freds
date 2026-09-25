@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Autos;
 import frc.robot.commands.Locomocao;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -10,6 +11,7 @@ public class RobotContainer {
   public static final Joystick fred = new Joystick(OperatorConstants.fred);
   public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
   public static final Locomocao locomocao = new Locomocao(fred, driveTrain);
+  public static final Autos autonomous = new Autos(locomocao, driveTrain);
 
   public RobotContainer() {
     locomocao.addRequirements(driveTrain);
@@ -17,6 +19,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand(){
-    return null;
+    return autonomous;
   }
 }
