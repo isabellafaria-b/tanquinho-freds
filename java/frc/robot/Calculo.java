@@ -1,9 +1,8 @@
 package frc.robot;
 
 import frc.robot.commands.Locomocao;
-import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class Calculo extends DriveTrainSubsystem{
+public class Calculo{
     // Variáveis
     public static double hipotenusa, hipotenusa1;
     double sen, sen1;
