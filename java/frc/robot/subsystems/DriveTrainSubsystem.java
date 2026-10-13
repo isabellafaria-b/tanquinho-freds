@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkBase;
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -13,31 +14,41 @@ import frc.robot.Constants;
 
 public class DriveTrainSubsystem extends SubsystemBase {
     // Controladores de motor
-    protected final SparkMax dt = new SparkMax(Constants.OperatorConstants.dt, MotorType.kBrushed);
-    protected final SparkMax df = new SparkMax(Constants.OperatorConstants.df, MotorType.kBrushed);
-    protected final SparkMax et = new SparkMax(Constants.OperatorConstants.et, MotorType.kBrushed);
-    protected final SparkMax ef = new SparkMax(Constants.OperatorConstants.ef, MotorType.kBrushed);
+    protected final SparkMax dt = new SparkMax(Constants.MotorConstants.dt, MotorType.kBrushed);
+    protected final SparkMax df = new SparkMax(Constants.MotorConstants.df, MotorType.kBrushed);
+    protected final SparkMax et = new SparkMax(Constants.MotorConstants.et, MotorType.kBrushed);
+    protected final SparkMax ef = new SparkMax(Constants.MotorConstants.ef, MotorType.kBrushed);
 
-    public DriveTrainSubsystem(){
-        SparkMaxConfig configDir = new SparkMaxConfig();
-        configDir.inverted(true);
-        configDir.follow(df, false);
-        configDir.idleMode(IdleMode.kBrake);
-        dt.configure(configDir, SparkBase.ResetMode.kResetSafeParameters,
-             SparkBase.PersistMode.kPersistParameters);
+    public void DriveTrain(){
+        SparkMaxConfig configDir1 = new SparkMaxConfig();
+        configDir1.idleMode(IdleMode.kBrake);
+        df.configure(configDir1, ResetMode.kResetSafeParameters,
+         PersistMode.kPersistParameters);
 
-        SparkMaxConfig configEsq = new SparkMaxConfig();
-        configEsq.follow(ef, false);
-        configEsq.idleMode(IdleMode.kBrake);
-        ef.configure(configEsq, null, null);
+        SparkMaxConfig configDir2 = new SparkMaxConfig();
+        configDir2.idleMode(IdleMode.kBrake);
+        dt.configure(configDir2, ResetMode.kResetSafeParameters,
+         PersistMode.kPersistParameters);
+        
+        SparkMaxConfig configEsq1 = new SparkMaxConfig();
+        configEsq1.inverted(true);
+        configEsq1.idleMode(IdleMode.kBrake);
+        ef.configure(configEsq1, ResetMode.kResetSafeParameters,
+         PersistMode.kPersistParameters);
+
+        SparkMaxConfig configEsq2 = new SparkMaxConfig();
+        configEsq2.inverted(true);
+        configEsq2.idleMode(IdleMode.kBrake);
+        et.configure(configEsq2, ResetMode.kResetSafeParameters,
+         PersistMode.kPersistParameters);
     }
 
     public void Drive(double velE, double velD){
         Calculo.velEsq = velE;
         Calculo.velDir = velD;
         
-        df.set(Calculo.velDir);
-        ef.set(Calculo.velEsq);
+        df.set(velD); dt.set(velD);
+        ef.set(velE); et.set(velE);
     }
 
     @Override

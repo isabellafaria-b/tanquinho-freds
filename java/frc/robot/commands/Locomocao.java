@@ -23,7 +23,7 @@ public class Locomocao extends Command {
 
   public Locomocao(Joystick fred, DriveTrainSubsystem subsystem) {
     this.fred = fred;
-    drive = subsystem;
+    this.drive = subsystem;
 
     addRequirements(subsystem);
   }
@@ -52,6 +52,7 @@ public class Locomocao extends Command {
   public void execute() {
     objetos();
     drive.Drive(Calculo.velEsq, Calculo.velDir);
+    drive.DriveTrain();
 
     if(Calculo.hipotenusa > deadzone){
       calculo.analEsq();
