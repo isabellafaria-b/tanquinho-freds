@@ -11,13 +11,17 @@ public class RobotContainer {
   public static final Joystick fred = new Joystick(OperatorConstants.fred);
   public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
   public static final Locomocao locomocao = new Locomocao(fred, driveTrain);
+  public static Autos autos;
 
   public RobotContainer() {
     locomocao.addRequirements(driveTrain);
     driveTrain.setDefaultCommand(locomocao);
+
+    autos = new Autos(locomocao, driveTrain);
+    getAutonomousCommand();
   }
 
   public Command getAutonomousCommand(){
-    return new Autos(locomocao, driveTrain);
+    return autos;
   }
 }

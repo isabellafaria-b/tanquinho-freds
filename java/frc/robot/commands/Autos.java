@@ -29,7 +29,7 @@ public class Autos extends Command {
   @Override
   public void execute() {
     if(isabella.get() <= 2){
-        subsystem.Drive(1, 1);
+        subsystem.Drive(0.5, 0.5);
     } else {
       isabella.stop();
       subsystem.Drive(0, 0);

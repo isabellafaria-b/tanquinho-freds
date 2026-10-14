@@ -53,7 +53,7 @@ public class Calculo{
     } else if(Locomocao.x1 > deadzone && Locomocao.y1 < deadzone){
       velEsq = hipotenusa;
       velDir = 0;
-    } else if(Locomocao.x1 < -deadzone && Locomocao.y1 < -deadzone){
+    } else if(Locomocao.x1 < deadzone && Locomocao.y1 < -deadzone){
       velEsq = -hipotenusa;
       velDir = -hipotenusa;
     } else if(Locomocao.x1 < -deadzone && Locomocao.y1 < deadzone){
@@ -88,7 +88,7 @@ public class Calculo{
      } else if(Locomocao.x2 > deadzone && Locomocao.y2 < deadzone){
        velEsq = hipotenusa1;
        velDir = 0;
-     } else if(Locomocao.x2 < -deadzone && Locomocao.y2 < -deadzone){
+     } else if(Locomocao.x2 < deadzone && Locomocao.y2 < -deadzone){
        velEsq = -hipotenusa1;
        velDir = -hipotenusa1;
      } else if(Locomocao.x2 < -deadzone && Locomocao.y2 < deadzone){
