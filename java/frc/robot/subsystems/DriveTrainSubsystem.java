@@ -21,26 +21,28 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     public void DriveTrain(){
         SparkMaxConfig configDir1 = new SparkMaxConfig();
+        configDir1.follow(df);
         configDir1.idleMode(IdleMode.kBrake);
-        df.configure(configDir1, ResetMode.kResetSafeParameters,
+        dt.configure(configDir1, ResetMode.kResetSafeParameters,
          PersistMode.kPersistParameters);
 
-        SparkMaxConfig configDir2 = new SparkMaxConfig();
+        /*SparkMaxConfig configDir2 = new SparkMaxConfig();
         configDir2.idleMode(IdleMode.kBrake);
         dt.configure(configDir2, ResetMode.kResetSafeParameters,
-         PersistMode.kPersistParameters);
+         PersistMode.kPersistParameters);*/
         
         SparkMaxConfig configEsq1 = new SparkMaxConfig();
+        configEsq1.follow(ef);
         configEsq1.inverted(true);
         configEsq1.idleMode(IdleMode.kBrake);
-        ef.configure(configEsq1, ResetMode.kResetSafeParameters,
+        et.configure(configEsq1, ResetMode.kResetSafeParameters,
          PersistMode.kPersistParameters);
 
-        SparkMaxConfig configEsq2 = new SparkMaxConfig();
+        /*SparkMaxConfig configEsq2 = new SparkMaxConfig();
         configEsq2.inverted(true);
         configEsq2.idleMode(IdleMode.kBrake);
         et.configure(configEsq2, ResetMode.kResetSafeParameters,
-         PersistMode.kPersistParameters);
+         PersistMode.kPersistParameters);*/
     }
 
     public void Drive(double velE, double velD){
