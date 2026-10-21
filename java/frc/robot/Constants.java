@@ -13,5 +13,13 @@ public final class Constants {
     public static final int df = 3;
     public static final int et = 2;
     public static final int ef = 1;
+
+    public static final int garra = 5;
   }
+
+  /*public static class EncoderConstants {
+    public static final int channelA = 1;
+    public static final int channelB = 2;
+    public static final boolean reversed = false;
+  }*/
 }

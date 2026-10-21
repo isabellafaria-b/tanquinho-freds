@@ -11,6 +11,7 @@ public class RobotContainer {
   public static final Joystick fred = new Joystick(OperatorConstants.fred);
   public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
   public static final Locomocao locomocao = new Locomocao(fred, driveTrain);
+  //private static final Encoder enconder = new Encoder(1, 2, false, CounterBase.EncodingType.k4X);
   public static Autos autos;
 
   public RobotContainer() {

@@ -9,6 +9,7 @@ public class Calculo{
     private final double deadzone = Constants.OperatorConstants.deadzone;
     public static double velDir = 0, velEsq = 0;
     public static double velBotao; public static int angulo;
+    public static double velGarra;
 
     // calculos analogicos
     public void calcEsq(){

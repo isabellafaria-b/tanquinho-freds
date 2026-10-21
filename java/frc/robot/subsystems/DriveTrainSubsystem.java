@@ -44,7 +44,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         et.configure(configEsq2, ResetMode.kResetSafeParameters,
          PersistMode.kPersistParameters);*/
     }
-
+ 
     public void Drive(double velE, double velD){
         Calculo.velEsq = velE;
         Calculo.velDir = velD;
@@ -52,10 +52,4 @@ public class DriveTrainSubsystem extends SubsystemBase {
         df.set(velD); dt.set(velD);
         ef.set(velE); et.set(velE);
     }
-
-    @Override
-  public void periodic() {
-    
-  }
-
 }
