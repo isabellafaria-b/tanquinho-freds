@@ -10,7 +10,6 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 public class Locomocao extends Command {
   // Variáveis
   boolean botaoA, botaoB, botaoC, botaoD;
-  public static double trigelaE, trigelaD;
   public static double x1, y1; public static double x2, y2;
 
   // Deadzone
@@ -40,10 +39,6 @@ public class Locomocao extends Command {
       x2 = fred.getRawAxis(4);
       y2 = -fred.getRawAxis(5);
 
-    // triggers
-      trigelaD = fred.getRawAxis(3);
-      trigelaE = fred.getRawAxis(2);
-
     // POV
     Calculo.angulo = fred.getPOV();
   }
@@ -52,14 +47,11 @@ public class Locomocao extends Command {
   public void execute() {
     objetos();
     drive.Drive(Calculo.velEsq, Calculo.velDir);
-    drive.DriveTrain();
 
     if(Calculo.hipotenusa > deadzone){
       calculo.analEsq();
     } else if(Calculo.hipotenusa1 > deadzone){
       calculo.analDir(); 
-    } else if(trigelaD > deadzone || trigelaE > deadzone){
-      calculo.triggers();
     } else if(fred.getPOV() != -1) {
       calculo.POV();
     } else {
@@ -78,12 +70,12 @@ public class Locomocao extends Command {
    SmartDashboard.putBoolean("Botao B", botaoB);
    SmartDashboard.putBoolean("Botao C", botaoC);
    SmartDashboard.putBoolean("Botao D", botaoA);
+   SmartDashboard.putNumber("Movimento do braco", Calculo.velBraco);
+   SmartDashboard.putNumber("Movimento da garra", Calculo.velGarra); 
    SmartDashboard.putNumber("Velocidade botao", Calculo.velBotao);
    SmartDashboard.putNumber("Vel do motor direito", Calculo.velDir);
    SmartDashboard.putNumber("Vel do motor esquerdo", Calculo.velEsq);
    SmartDashboard.putNumber("POV", Calculo.angulo);
-   SmartDashboard.putNumber("Trigger Direita", trigelaD);
-   SmartDashboard.putNumber("Trigger Esquerda", trigelaE);
    SmartDashboard.putNumber("TimerBella", Autos.isabella.get());
   }
   

@@ -1,5 +1,7 @@
 package frc.robot;
 
+import frc.robot.commands.Arm;
+import frc.robot.commands.Garra;
 import frc.robot.commands.Locomocao;
 
 public class Calculo{
@@ -9,7 +11,10 @@ public class Calculo{
     private final double deadzone = Constants.OperatorConstants.deadzone;
     public static double velDir = 0, velEsq = 0;
     public static double velBotao; public static int angulo;
+  
+    //Variáveis da garra
     public static double velGarra;
+    public static double velBraco;
 
     // calculos analogicos
     public void calcEsq(){
@@ -101,19 +106,26 @@ public class Calculo{
      velDir *= velBotao;
   }
 
-   public void triggers() {
-    if (Locomocao.trigelaE > deadzone) {
-      velDir = -Locomocao.trigelaE;
-      velEsq = -Locomocao.trigelaE;
-    } else if (Locomocao.trigelaD > deadzone) {
-      velDir = Locomocao.trigelaD;
-      velEsq = Locomocao.trigelaD;
+  public void garraOn(){
+     if (Garra.lb) {
+      velGarra = -1;
+    } else if(Garra.rb) {
+      velGarra = 1;
     } else {
-      velEsq = 0; velDir = 0;
+      velGarra = 0;
+    }
+  }
+
+   public void triggers() {
+    if (Arm.trigelaE > deadzone) {
+      velBraco = -Arm.trigelaE;
+    } else if (Arm.trigelaD > deadzone) {
+      velBraco = Arm.trigelaD;
+    } else {
+      velBraco = 0;
     }
 
     velEsq *= velBotao;
-    velDir *= velBotao;
   }
 
       public void POV() {

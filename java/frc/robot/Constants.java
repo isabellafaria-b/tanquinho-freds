@@ -15,6 +15,7 @@ public final class Constants {
     public static final int ef = 1;
 
     public static final int garra = 5;
+    public static final int braco = 15;
   }
 
   /*public static class EncoderConstants {

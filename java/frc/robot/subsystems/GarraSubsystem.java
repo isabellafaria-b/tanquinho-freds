@@ -8,6 +8,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Calculo;
 import frc.robot.Constants;
 
 public class GarraSubsystem extends SubsystemBase {
@@ -15,22 +16,16 @@ public class GarraSubsystem extends SubsystemBase {
     protected final SparkMax mg = new SparkMax(Constants.MotorConstants.garra, 
     MotorType.kBrushless);
  
-    public GarraSubsystem() {
+  public GarraSubsystem() {
       SparkMaxConfig configGarra = new SparkMaxConfig();
          configGarra.idleMode(IdleMode.kBrake);
          mg.configure(configGarra, ResetMode.kResetSafeParameters,
           PersistMode.kPersistParameters);
   }
 
-  public void abrirGarra(){
-    mg.set(-0.5);
-  }
+  public void DriveGarra(double velG){
+    Calculo.velGarra = velG;
 
-  public void fecharGarra(){
-    mg.set(0.5);
-  }
-
-  public void pararGarra(){
-    mg.set(0);
+    mg.set(velG);
   }
 }

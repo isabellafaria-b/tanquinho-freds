@@ -19,7 +19,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     protected final SparkMax et = new SparkMax(Constants.MotorConstants.et, MotorType.kBrushed);
     protected final SparkMax ef = new SparkMax(Constants.MotorConstants.ef, MotorType.kBrushed);
 
-    public void DriveTrain(){
+    public DriveTrainSubsystem(){
         SparkMaxConfig configDir1 = new SparkMaxConfig();
         configDir1.follow(df);
         configDir1.idleMode(IdleMode.kBrake);
