@@ -1,8 +1,8 @@
 package frc.robot;
 
-import frc.robot.commands.Arm;
 import frc.robot.commands.Garra;
 import frc.robot.commands.Locomocao;
+import frc.robot.subsystems.GarraSubsystem;
 
 public class Calculo{
     // Variáveis
@@ -106,7 +106,7 @@ public class Calculo{
      velDir *= velBotao;
   }
 
-  public void garraOn(){
+  public void garraOn(GarraSubsystem garra){
      if (Garra.lb) {
       velGarra = -1;
     } else if(Garra.rb) {
@@ -114,18 +114,8 @@ public class Calculo{
     } else {
       velGarra = 0;
     }
-  }
 
-   public void triggers() {
-    if (Arm.trigelaE > deadzone) {
-      velBraco = -Arm.trigelaE;
-    } else if (Arm.trigelaD > deadzone) {
-      velBraco = Arm.trigelaD;
-    } else {
-      velBraco = 0;
-    }
-
-    velEsq *= velBotao;
+    garra.DriveGarra(velGarra);
   }
 
       public void POV() {

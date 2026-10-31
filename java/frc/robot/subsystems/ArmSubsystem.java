@@ -13,12 +13,13 @@ import frc.robot.Constants.MotorConstants;
 
 public class ArmSubsystem extends SubsystemBase {
   // Motor do braço
-    protected final SparkMax mb = new SparkMax(MotorConstants.braco,
+    private final SparkMax mb = new SparkMax(MotorConstants.braco,
      MotorType.kBrushless);
 
   public ArmSubsystem() {
     SparkMaxConfig configBraco = new SparkMaxConfig();
          configBraco.idleMode(IdleMode.kBrake);
+         configBraco.smartCurrentLimit(20);
          mb.configure(configBraco, ResetMode.kResetSafeParameters,
           PersistMode.kPersistParameters);
   }

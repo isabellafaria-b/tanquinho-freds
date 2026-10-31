@@ -46,7 +46,7 @@ public class Locomocao extends Command {
   @Override
   public void execute() {
     objetos();
-    drive.Drive(Calculo.velEsq, Calculo.velDir);
+    botoes();
 
     if(Calculo.hipotenusa > deadzone){
       calculo.analEsq();
@@ -59,10 +59,11 @@ public class Locomocao extends Command {
       Calculo.velDir = 0;
     }
 
-      botoes();
-      calculo.calcEsq();
-      calculo.calcDir();
-      dashboard();
+    calculo.calcEsq();
+    calculo.calcDir();
+
+    drive.Drive(Calculo.velEsq, Calculo.velDir);
+    dashboard();
   }
 
   public void dashboard(){
@@ -71,7 +72,7 @@ public class Locomocao extends Command {
    SmartDashboard.putBoolean("Botao C", botaoC);
    SmartDashboard.putBoolean("Botao D", botaoA);
    SmartDashboard.putNumber("Movimento do braco", Calculo.velBraco);
-   SmartDashboard.putNumber("Movimento da garra", Calculo.velGarra); 
+   SmartDashboard.putNumber("Movimento da garra", Calculo.velGarra);
    SmartDashboard.putNumber("Velocidade botao", Calculo.velBotao);
    SmartDashboard.putNumber("Vel do motor direito", Calculo.velDir);
    SmartDashboard.putNumber("Vel do motor esquerdo", Calculo.velEsq);

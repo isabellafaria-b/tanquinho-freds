@@ -14,7 +14,7 @@ public final class Constants {
     public static final int et = 2;
     public static final int ef = 1;
 
-    public static final int garra = 5;
+    public static final int garra = 14;
     public static final int braco = 15;
   }
 

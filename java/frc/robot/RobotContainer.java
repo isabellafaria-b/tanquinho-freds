@@ -2,8 +2,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Arm;
 import frc.robot.commands.Autos;
+import frc.robot.commands.Braco;
 import frc.robot.commands.Garra;
 import frc.robot.commands.Locomocao;
 import frc.robot.subsystems.ArmSubsystem;
@@ -19,7 +19,7 @@ public class RobotContainer {
   public static final GarraSubsystem garra = new GarraSubsystem();
   public static final Garra garrinha = new Garra(garra, fred);
   public static final ArmSubsystem braco = new ArmSubsystem();
-  public static final Arm bracinho = new Arm(braco, fred);
+  public static final Braco bracinho = new Braco(braco, fred);
 
   public RobotContainer() {
     locomocao.addRequirements(driveTrain);

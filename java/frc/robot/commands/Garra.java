@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Calculo;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.GarraSubsystem;
 
 public class Garra extends Command {
@@ -32,7 +33,7 @@ public class Garra extends Command {
   @Override
   public void execute() {
     objetos();
-    calculo.garraOn();
+    calculo.garraOn(RobotContainer.garra);
     subsystem.DriveGarra(Calculo.velGarra);
   }
 

@@ -9,15 +9,15 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calculo;
-import frc.robot.Constants;
+import frc.robot.Constants.MotorConstants;;
 
 
 public class DriveTrainSubsystem extends SubsystemBase {
     // Controladores de motor
-    protected final SparkMax dt = new SparkMax(Constants.MotorConstants.dt, MotorType.kBrushed);
-    protected final SparkMax df = new SparkMax(Constants.MotorConstants.df, MotorType.kBrushed);
-    protected final SparkMax et = new SparkMax(Constants.MotorConstants.et, MotorType.kBrushed);
-    protected final SparkMax ef = new SparkMax(Constants.MotorConstants.ef, MotorType.kBrushed);
+    private final SparkMax dt = new SparkMax(MotorConstants.dt, MotorType.kBrushed);
+    private final SparkMax df = new SparkMax(MotorConstants.df, MotorType.kBrushed);
+    private final SparkMax et = new SparkMax(MotorConstants.et, MotorType.kBrushed);
+    private final SparkMax ef = new SparkMax(MotorConstants.ef, MotorType.kBrushed);
 
     public DriveTrainSubsystem(){
         SparkMaxConfig configDir1 = new SparkMaxConfig();
