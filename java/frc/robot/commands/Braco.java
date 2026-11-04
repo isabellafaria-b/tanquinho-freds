@@ -37,6 +37,7 @@ public class Braco extends Command {
       Calculo.velBraco = 0;
     }
 
+    Calculo.velBraco *= 0.3;
     braco.DriveBraco(Calculo.velBraco);
   }
 

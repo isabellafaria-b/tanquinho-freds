@@ -115,6 +115,7 @@ public class Calculo{
       velGarra = 0;
     }
 
+    velGarra *= 0.6;
     garra.DriveGarra(velGarra);
   }
 
