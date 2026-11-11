@@ -77,7 +77,6 @@ public class Locomocao extends Command {
    SmartDashboard.putNumber("Vel do motor direito", Calculo.velDir);
    SmartDashboard.putNumber("Vel do motor esquerdo", Calculo.velEsq);
    SmartDashboard.putNumber("POV", Calculo.angulo);
-   SmartDashboard.putNumber("TimerBella", Autos.isabella.get());
   }
   
   public void botoes(){

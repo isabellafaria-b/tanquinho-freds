@@ -16,6 +16,7 @@ public class RobotContainer {
   public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
   public static final Locomocao locomocao = new Locomocao(fred, driveTrain);
 
+   // Garra / braco
   public static final GarraSubsystem garra = new GarraSubsystem();
   public static final Garra garrinha = new Garra(garra, fred);
   public static final ArmSubsystem braco = new ArmSubsystem();

@@ -10,7 +10,7 @@ public class Braco extends Command {
   // Variáveis
   public static double trigelaE, trigelaD;
   private final double deadzone = OperatorConstants.deadzone;
-
+ 
   // Objetos
   private final Joystick fred;
   private final ArmSubsystem braco;

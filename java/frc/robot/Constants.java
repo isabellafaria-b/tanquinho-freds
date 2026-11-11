@@ -18,9 +18,11 @@ public final class Constants {
     public static final int braco = 15;
   }
 
-  /*public static class EncoderConstants {
-    public static final int channelA = 1;
-    public static final int channelB = 2;
+  public static class SensorConstants {
+    public static final int channelA = 0;
+    public static final int channelB = 1;
     public static final boolean reversed = false;
-  }*/
+
+    public static final double distanciaAlvo = 3;
+  }
 }
