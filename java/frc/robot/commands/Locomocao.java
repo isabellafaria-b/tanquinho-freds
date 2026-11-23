@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Calculo;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.InfraVermelho;
 
 public class Locomocao extends Command {
   // Variáveis
@@ -19,10 +20,12 @@ public class Locomocao extends Command {
     private final Joystick fred;
     private final DriveTrainSubsystem drive;
     private final Calculo calculo = new Calculo();
+    private final InfraVermelho vermelhinho;
 
-  public Locomocao(Joystick fred, DriveTrainSubsystem subsystem) {
+  public Locomocao(Joystick fred, DriveTrainSubsystem subsystem, InfraVermelho vermelinho) {
     this.fred = fred;
     this.drive = subsystem;
+    this.vermelhinho = vermelinho;
 
     addRequirements(subsystem);
   }
@@ -41,6 +44,18 @@ public class Locomocao extends Command {
 
     // POV
     Calculo.angulo = fred.getPOV();
+  }
+
+  public void parar(){
+    if(Calculo.velDir > deadzone && Calculo.velEsq > deadzone) {
+      if(vermelhinho.temParede() == true){
+        drive.Drive(0, 0);
+      } else{
+        drive.Drive(Calculo.velEsq, Calculo.velDir);
+      }
+    } else {
+      drive.Drive(Calculo.velEsq, Calculo.velDir);
+    }
   }
 
   @Override

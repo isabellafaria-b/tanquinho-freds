@@ -23,6 +23,7 @@ public final class Constants {
     public static final int channelB = 1;
     public static final boolean reversed = false;
 
+    public static final int DigitalInput = 0;
     public static final double distanciaAlvo = 3;
   }
 }

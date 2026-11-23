@@ -9,12 +9,14 @@ import frc.robot.commands.Locomocao;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.GarraSubsystem;
+import frc.robot.subsystems.InfraVermelho;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class RobotContainer {
   public static final Joystick fred = new Joystick(OperatorConstants.fred);
   public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
-  public static final Locomocao locomocao = new Locomocao(fred, driveTrain);
+  public static final InfraVermelho infraVermelho = new InfraVermelho(driveTrain);
+  public static final Locomocao locomocao = new Locomocao(fred, driveTrain, infraVermelho);
 
    // Garra / braco
   public static final GarraSubsystem garra = new GarraSubsystem();
