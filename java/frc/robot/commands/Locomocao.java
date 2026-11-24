@@ -46,22 +46,13 @@ public class Locomocao extends Command {
     Calculo.angulo = fred.getPOV();
   }
 
-  public void parar(){
-    if(Calculo.velDir > deadzone && Calculo.velEsq > deadzone) {
-      if(vermelhinho.temParede() == true){
-        drive.Drive(0, 0);
-      } else{
-        drive.Drive(Calculo.velEsq, Calculo.velDir);
-      }
-    } else {
-      drive.Drive(Calculo.velEsq, Calculo.velDir);
-    }
-  }
-
   @Override
   public void execute() {
     objetos();
     botoes();
+
+    calculo.calcEsq();
+    calculo.calcDir();
 
     if(Calculo.hipotenusa > deadzone){
       calculo.analEsq();
@@ -74,8 +65,9 @@ public class Locomocao extends Command {
       Calculo.velDir = 0;
     }
 
-    calculo.calcEsq();
-    calculo.calcDir();
+    if (((Calculo.velDir + Calculo.velEsq) / 2) > deadzone && vermelhinho.temParede()) {
+    drive.Drive(0, 0);
+  }
 
     drive.Drive(Calculo.velEsq, Calculo.velDir);
     dashboard();
