@@ -18,6 +18,6 @@ public class InfraVermelho extends SubsystemBase {
   }
 
   public boolean temParede() {
-    return input.get();
+    return !input.get();
   }
 }

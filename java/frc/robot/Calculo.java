@@ -10,7 +10,7 @@ public class Calculo{
     double sen, sen1;
     private final double deadzone = Constants.OperatorConstants.deadzone;
     public static double velDir = 0, velEsq = 0;
-    public static double velBotao; public static int angulo;
+    public static double velBotao = 0; public static int angulo;
   
     //Variáveis da garra
     public static double velGarra;
@@ -23,7 +23,6 @@ public class Calculo{
           hipotenusa = 1;
         }
         sen = Locomocao.y1 / hipotenusa;
-        Math.max(-1, Math.min(1, sen));
     }
 
     public void calcDir(){
@@ -32,7 +31,6 @@ public class Calculo{
             hipotenusa1 = 1;
         } 
         sen1 = Locomocao.y2 / hipotenusa1;
-        Math.max(-1, Math.min(1, sen1));
     }
 
     //analogicos
@@ -123,6 +121,7 @@ public class Calculo{
     switch (angulo) {
       case -1:
       velEsq = 0; velDir = 0;
+      break;
       case 0: 
        velEsq = 1;
        velDir = 1;
@@ -138,6 +137,7 @@ public class Calculo{
       case 135:
        velEsq = -1;
        velDir = -0.5;
+       break;
       case 180:
        velEsq = -1;
        velDir = -1;

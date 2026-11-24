@@ -7,10 +7,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calculo;
-import frc.robot.Constants.SensorConstants;
 import frc.robot.Constants.MotorConstants;;
 
 
@@ -21,41 +19,39 @@ public class DriveTrainSubsystem extends SubsystemBase {
     private final SparkMax et = new SparkMax(MotorConstants.et, MotorType.kBrushed);
     private final SparkMax ef = new SparkMax(MotorConstants.ef, MotorType.kBrushed);
 
-    // Encoder
-    public static final Encoder encoder = new Encoder(SensorConstants.channelA,
-     SensorConstants.channelB, SensorConstants.reversed, Encoder.EncodingType.k4X);
-
     public DriveTrainSubsystem(){
+        // Lideres
         SparkMaxConfig configDir1 = new SparkMaxConfig();
-        configDir1.follow(df);
+        configDir1.inverted(false);
         configDir1.idleMode(IdleMode.kBrake);
-        dt.configure(configDir1, ResetMode.kResetSafeParameters,
+        df.configure(configDir1, ResetMode.kResetSafeParameters,
          PersistMode.kPersistParameters);
         
         SparkMaxConfig configEsq1 = new SparkMaxConfig();
-        configEsq1.follow(ef);
         configEsq1.inverted(true);
         configEsq1.idleMode(IdleMode.kBrake);
-        et.configure(configEsq1, ResetMode.kResetSafeParameters,
+        ef.configure(configEsq1, ResetMode.kResetSafeParameters,
          PersistMode.kPersistParameters);
 
-         // Configurações do encoder
-         encoder.setDistancePerPulse(4.0 / 256.0);
-    }
- 
-    public void resetEncoder(){
-        encoder.reset();
-    }
+         // Seguidores
+        SparkMaxConfig configDir2 = new SparkMaxConfig();
+        configDir2.follow(df, false);
+        configDir2.idleMode(IdleMode.kBrake);
+        dt.configure(configDir1, ResetMode.kResetSafeParameters,
+         PersistMode.kPersistParameters);
 
-    public double pegarDistancia(){
-        return encoder.getDistance();
+        SparkMaxConfig configEsq2 = new SparkMaxConfig();
+        configEsq2.follow(ef, false);
+        configEsq2.idleMode(IdleMode.kBrake);
+        et.configure(configDir1, ResetMode.kResetSafeParameters,
+         PersistMode.kPersistParameters);
     }
 
     public void Drive(double velE, double velD){
         Calculo.velEsq = velE;
         Calculo.velDir = velD;
         
-        df.set(velD); dt.set(velD);
-        ef.set(velE); et.set(velE);
+        df.set(velD);
+        ef.set(velE);
     }
 }
