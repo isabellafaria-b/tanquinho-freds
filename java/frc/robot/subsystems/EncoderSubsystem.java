@@ -11,7 +11,7 @@ public class EncoderSubsystem extends SubsystemBase {
  
   public EncoderSubsystem() {
       // Configurações do encoder
-      encoder.setDistancePerPulse(360 / 8192);
+      encoder.setDistancePerPulse(360.0 / 8192.0);
   }
 
   public void resetEncoder(){

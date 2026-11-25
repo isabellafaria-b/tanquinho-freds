@@ -19,7 +19,7 @@ public class RobotContainer {
   public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
 
   // Sensores e locomoção
-  public static final InfraVermelho infraVermelho = new InfraVermelho(driveTrain);
+  public static final InfraVermelho infraVermelho = new InfraVermelho();
   public static final EncoderSubsystem encoder = new EncoderSubsystem();
   public static final Locomocao locomocao = new Locomocao(fred, driveTrain, infraVermelho, encoder);
 

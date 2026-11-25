@@ -24,6 +24,7 @@ public final class Constants {
     public static final boolean reversed = false;
 
     public static final int DigitalInput = 2;
+    public static final double debounceTime = 0.1;
     public static final double distanciaAlvo = 4.0;
-  }
+    }
 }

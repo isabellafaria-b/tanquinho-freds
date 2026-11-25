@@ -74,12 +74,13 @@ public class Locomocao extends Command {
   }
 
   public void parar(){
-    //mediaVel = (Calculo.velEsq + Calculo.velDir) / 2;
-    if(vermelhinho.temParede()){
-      drive.Drive(Calculo.velEsq, Calculo.velDir);
-    } else if(vermelhinho.temParede() == false){
-      drive.Drive(Calculo.velEsq, Calculo.velDir);
+    mediaVel = (Calculo.velEsq + Calculo.velDir) / 2;
+    if(vermelhinho.temObstaculo() && mediaVel > 0) {
+      Calculo.velDir = 0;
+      Calculo.velEsq = 0;
     }
+    
+    drive.Drive(Calculo.velEsq, Calculo.velDir);
   }
 
   public void dashboard(){
@@ -87,7 +88,6 @@ public class Locomocao extends Command {
    SmartDashboard.putBoolean("Botao B", botaoB);
    SmartDashboard.putBoolean("Botao C", botaoC);
    SmartDashboard.putBoolean("Botao D", botaoA);
-   SmartDashboard.putBoolean("InfraVermelho", vermelhinho.temParede());
    SmartDashboard.putNumber("Movimento do braco", Calculo.velBraco);
    SmartDashboard.putNumber("Movimento da garra", Calculo.velGarra);
    SmartDashboard.putNumber("Velocidade botao", Calculo.velBotao);
